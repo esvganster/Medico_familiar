@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Ramón Victoriano | Contacto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="logo" href="index.html">Dr. Ramón Victoriano</a>
+        <nav class="main-nav" aria-label="Navegación principal">
+            <a href="index.html">Inicio</a>
+            <a href="servicios.html">Servicios</a>
+            <a class="active" href="contacto.html">Contacto</a>
+        </nav>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambiar modo oscuro">
+            Modo oscuro
+        </button>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <p class="eyebrow">Contacto</p>
+            <h1>Agenda tu consulta o solicita información.</h1>
+            <p>Completa el formulario o utiliza los datos de contacto del consultorio.</p>
+        </section>
+
+        <!-- Diseño de contacto: Grid coloca información y formulario lado a lado en escritorio. -->
+        <section class="contact-layout">
+            <aside class="contact-info">
+                <h2>Información del consultorio</h2>
+                <p><strong>Teléfono:</strong> 829-804-8281</p>
+                <p><strong>Correo electrónico:</strong> drvictoriano@hotmail.com</p>
+                <p><strong>Ubicación:</strong> Centro Médico Anacaona</p>
+                <a class="btn primary" href="tel:8298048281">Llamar ahora</a>
+            </aside>
+
+            <form class="appointment-form" id="appointmentForm">
+                <label for="name">Nombre completo</label>
+                <input id="name" name="name" type="text" placeholder="Escribe tu nombre" required>
+
+                <label for="phone">Teléfono</label>
+                <input id="phone" name="phone" type="tel" placeholder="Ej. 829-000-0000" required>
+
+                <label for="service">Servicio de interés</label>
+                <select id="service" name="service" required>
+                    <option value="">Selecciona una opción</option>
+                    <option>Consulta preventiva</option>
+                    <option>Manejo de enfermedad crónica</option>
+                    <option>Visita domiciliaria</option>
+                    <option>Certificado médico</option>
+                </select>
+
+                <label for="message">Mensaje</label>
+                <textarea id="message" name="message" rows="5" placeholder="Describe brevemente tu necesidad"></textarea>
+
+                <button class="btn primary" type="submit">Enviar solicitud</button>
+                <p class="form-message" id="formMessage" aria-live="polite"></p>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Dr. Ramón A. Victoriano | Medicina Familiar y Comunitaria</p>
+    </footer>
+
+    <script src="../Scripts/scripts.js"></script>
+</body>
+</html>

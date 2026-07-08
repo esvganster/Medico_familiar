@@ -1,0 +1,471 @@
+/* Reinicio básico para que los elementos se comporten de forma consistente. */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Variables CSS: facilitan cambiar colores en todo el sitio desde un solo lugar. */
+:root {
+    --bg: #f7fafc;
+    --surface: #ffffff;
+    --surface-soft: #edf7f6;
+    --text: #17212b;
+    --muted: #5e6a75;
+    --primary: #0f766e;
+    --primary-dark: #115e59;
+    --accent: #f59e0b;
+    --border: #d8e5e3;
+    --shadow: 0 18px 45px rgba(23, 33, 43, 0.12);
+}
+
+/* La clase dark-mode se activa con JavaScript y cambia el tema completo. */
+body.dark-mode {
+    --bg: #111827;
+    --surface: #1f2937;
+    --surface-soft: #172033;
+    --text: #f8fafc;
+    --muted: #cbd5e1;
+    --primary: #2dd4bf;
+    --primary-dark: #14b8a6;
+    --accent: #fbbf24;
+    --border: #334155;
+    --shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Poppins", Arial, sans-serif;
+    line-height: 1.6;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+}
+
+/* Encabezado con Flexbox: separa logo, menú y botón de tema. */
+.site-header {
+    align-items: center;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    padding: 1rem 7%;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    color: var(--primary-dark);
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.main-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    justify-content: center;
+}
+
+.main-nav a,
+.theme-toggle,
+.btn {
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.main-nav a {
+    color: var(--muted);
+    padding: 0.55rem 0.8rem;
+}
+
+.main-nav a:hover,
+.main-nav .active {
+    background: var(--surface-soft);
+    color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.theme-toggle {
+    background: var(--text);
+    border: 0;
+    color: var(--bg);
+    cursor: pointer;
+    padding: 0.7rem 1rem;
+}
+
+/* Hover del botón de tema: cambia color y se eleva suavemente al pasar el mouse. */
+.theme-toggle:hover {
+    background: var(--primary-dark);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Hero con Grid: dos columnas en escritorio y una columna en móvil. */
+.hero {
+    align-items: center;
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.9fr);
+    min-height: calc(100vh - 78px);
+    padding: 4rem 7%;
+}
+
+.hero-content {
+    max-width: 680px;
+}
+
+.eyebrow {
+    color: var(--primary-dark);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+}
+
+h1,
+h2,
+h3 {
+    line-height: 1.15;
+}
+
+h1 {
+    font-size: clamp(2.25rem, 6vw, 4.8rem);
+    margin-bottom: 1.3rem;
+}
+
+h2 {
+    font-size: clamp(1.7rem, 3vw, 2.6rem);
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.7rem;
+}
+
+.hero p,
+.page-hero p,
+.split-section p,
+.education-band p {
+    color: var(--muted);
+    font-size: 1.05rem;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-top: 2rem;
+}
+
+.btn {
+    border: 1px solid transparent;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    padding: 0.85rem 1.2rem;
+}
+
+.btn.primary {
+    background: var(--primary-dark);
+    color: white;
+}
+
+.btn.secondary {
+    border-color: var(--border);
+    color: var(--primary-dark);
+}
+
+/* Hover de botones: ayuda a que el usuario note que son elementos interactivos. */
+.btn:hover {
+    box-shadow: 0 10px 24px rgba(15, 118, 110, 0.22);
+    transform: translateY(-3px);
+}
+
+.btn.primary:hover {
+    background: var(--accent);
+    color: #17212b;
+}
+
+.btn.secondary:hover {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+    color: white;
+}
+
+.hero-image,
+.split-section img,
+.education-band img {
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.25s ease, transform 0.25s ease;
+    width: 100%;
+}
+
+/* Hover de imágenes: un cambio ligero para dar sensación de respuesta visual. */
+.hero-image:hover,
+.split-section img:hover,
+.education-band img:hover {
+    filter: saturate(1.08) contrast(1.04);
+    transform: scale(1.015);
+}
+
+.hero-image {
+    align-self: center;
+    height: auto;
+    justify-self: center;
+    max-height: 560px;
+    object-fit: contain;
+    object-position: center center;
+    width: min(100%, 780px);
+}
+
+.section {
+    padding: 4.5rem 7%;
+}
+
+.section-heading {
+    margin: 0 auto 2rem;
+    max-width: 760px;
+    text-align: center;
+}
+
+/* Grid adaptable para tarjetas de la página de inicio. */
+.feature-grid,
+.services-grid {
+    display: grid;
+    gap: 1.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.card,
+.service-card,
+.contact-info,
+.appointment-form {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 1.4rem;
+    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+/* Hover de tarjetas: cambia el borde y eleva la tarjeta cuando el mouse pasa encima. */
+.card:hover,
+.service-card:hover,
+.contact-info:hover,
+.appointment-form:hover {
+    background: var(--surface-soft);
+    border-color: var(--primary);
+    box-shadow: 0 22px 50px rgba(15, 118, 110, 0.18);
+    transform: translateY(-6px);
+}
+
+.card-icon {
+    color: var(--accent);
+    display: inline-block;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.card p,
+.service-card li,
+.contact-info p {
+    color: var(--muted);
+}
+
+/* Flexbox: alinea imagen y texto, y en pantallas pequeñas se apila. */
+.split-section,
+.education-band {
+    align-items: center;
+    background: var(--surface-soft);
+    display: flex;
+    gap: 2rem;
+    padding: 4rem 7%;
+}
+
+.split-section > *,
+.education-band > * {
+    flex: 1 1 0;
+}
+
+.split-section img,
+.education-band img {
+    max-height: 430px;
+}
+
+.text-link {
+    color: var(--primary-dark);
+    display: inline-block;
+    font-weight: 700;
+    margin-top: 1rem;
+    transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.text-link:hover {
+    color: var(--accent);
+    transform: translateX(4px);
+}
+
+.page-hero {
+    background: var(--surface-soft);
+    padding: 4rem 7%;
+    text-align: center;
+}
+
+.page-hero p {
+    margin: 0 auto;
+    max-width: 760px;
+}
+
+.service-card ul {
+    display: grid;
+    gap: 0.65rem;
+    margin-top: 1rem;
+    padding-left: 1.2rem;
+}
+
+.education-band {
+    background: var(--surface);
+}
+
+/* Contacto con Grid: información y formulario comparten espacio en escritorio. */
+.contact-layout {
+    display: grid;
+    gap: 1.3rem;
+    grid-template-columns: minmax(240px, 0.8fr) minmax(280px, 1.2fr);
+    padding: 4.5rem 7%;
+}
+
+.contact-info {
+    align-self: start;
+}
+
+.contact-info p {
+    margin-bottom: 0.75rem;
+}
+
+.contact-info .btn {
+    margin-top: 1rem;
+}
+
+.appointment-form {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.appointment-form label {
+    font-weight: 600;
+}
+
+.appointment-form input,
+.appointment-form select,
+.appointment-form textarea {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font: inherit;
+    padding: 0.85rem;
+    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    width: 100%;
+}
+
+/* Hover y focus del formulario: el borde cambia de color al interactuar. */
+.appointment-form input:hover,
+.appointment-form select:hover,
+.appointment-form textarea:hover {
+    border-color: var(--primary);
+}
+
+.appointment-form input:focus,
+.appointment-form select:focus,
+.appointment-form textarea:focus {
+    border-color: var(--primary-dark);
+    box-shadow: 0 0 0 4px rgba(45, 212, 191, 0.18);
+    outline: none;
+}
+
+.appointment-form textarea {
+    resize: vertical;
+}
+
+.form-message {
+    color: var(--primary-dark);
+    font-weight: 700;
+    min-height: 1.5rem;
+}
+
+.site-footer {
+    background: var(--text);
+    color: var(--bg);
+    padding: 1.4rem 7%;
+    text-align: center;
+}
+
+/* Tableta: reduce espacios y permite que el encabezado respire mejor. */
+@media (max-width: 900px) {
+    .site-header {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .main-nav {
+        justify-content: flex-start;
+    }
+
+    .hero,
+    .contact-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .split-section,
+    .education-band {
+        flex-direction: column;
+    }
+}
+
+/* Móvil: botones de ancho completo y textos más cómodos para pantallas pequeñas. */
+@media (max-width: 560px) {
+    .site-header,
+    .hero,
+    .section,
+    .split-section,
+    .education-band,
+    .page-hero,
+    .contact-layout {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .main-nav a,
+    .theme-toggle,
+    .btn {
+        width: 100%;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+    }
+}

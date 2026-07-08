@@ -1,0 +1,43 @@
+// Seleccionamos elementos que existen en todas o algunas páginas del sitio.
+const themeToggle = document.getElementById("themeToggle");
+const appointmentForm = document.getElementById("appointmentForm");
+const formMessage = document.getElementById("formMessage");
+
+// Leemos el tema guardado. Si el usuario ya activó modo oscuro, se mantiene al cambiar de página.
+const savedTheme = localStorage.getItem("theme");
+
+if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+
+    if (themeToggle) {
+        themeToggle.textContent = "Modo claro";
+    }
+}
+
+// Evento click para cambiar entre modo claro y modo oscuro.
+if (themeToggle) {
+    themeToggle.addEventListener("click", function () {
+        document.body.classList.toggle("dark-mode");
+
+        const isDarkMode = document.body.classList.contains("dark-mode");
+
+        themeToggle.textContent = isDarkMode ? "Modo claro" : "Modo oscuro";
+        localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+    });
+}
+
+// El formulario solo existe en contacto.html, por eso validamos antes de usarlo.
+if (appointmentForm) {
+    appointmentForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const nameInput = document.getElementById("name");
+        const serviceInput = document.getElementById("service");
+
+        // Mensaje interactivo sencillo para confirmar la solicitud en pantalla.
+        formMessage.textContent =
+            `Gracias, ${nameInput.value}. Recibimos tu solicitud para: ${serviceInput.value}.`;
+
+        appointmentForm.reset();
+    });
+}
