@@ -69,10 +69,22 @@ a {
 }
 
 .logo {
+    align-items: center;
     color: var(--primary-dark);
+    display: inline-flex;
+    gap: 0.6rem;
     font-size: 1.05rem;
     font-weight: 700;
     text-decoration: none;
+}
+
+.logo img {
+    aspect-ratio: 1;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    height: 48px;
+    object-fit: cover;
+    width: 48px;
 }
 
 .main-nav {
@@ -365,6 +377,60 @@ h3 {
 }
 
 /* Contacto con Grid: información y formulario comparten espacio en escritorio. */
+.formative-section {
+    background: var(--surface-soft);
+    padding: 4.5rem 7%;
+}
+
+.formative-dropdown {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    margin: 0 auto;
+    max-width: 1120px;
+    overflow: hidden;
+}
+
+.formative-dropdown summary {
+    color: var(--primary-dark);
+    cursor: pointer;
+    font-size: 1.15rem;
+    font-weight: 700;
+    padding: 1.25rem 1.4rem;
+}
+
+.formative-dropdown summary:hover {
+    background: var(--surface-soft);
+}
+
+.formative-content {
+    align-items: start;
+    border-top: 1px solid var(--border);
+    display: grid;
+    gap: 1.4rem;
+    grid-template-columns: minmax(260px, 0.9fr) minmax(260px, 1.1fr);
+    padding: 1.4rem;
+}
+
+.formative-content img {
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    width: 100%;
+}
+
+.formative-content p,
+.formative-content li {
+    color: var(--muted);
+}
+
+.formative-content ul {
+    display: grid;
+    gap: 0.65rem;
+    margin-top: 1rem;
+    padding-left: 1.2rem;
+}
+
 .contact-layout {
     display: grid;
     gap: 1.3rem;
@@ -382,6 +448,31 @@ h3 {
 
 .contact-info .btn {
     margin-top: 1rem;
+}
+
+.contact-page .page-hero,
+.contact-page .contact-layout {
+    background:
+        linear-gradient(rgba(247, 250, 252, 0.9), rgba(247, 250, 252, 0.9)),
+        url("../images/medicina-familiar-logo.jpg") center / cover;
+}
+
+.dark-mode.contact-page .page-hero,
+.dark-mode.contact-page .contact-layout {
+    background:
+        linear-gradient(rgba(17, 24, 39, 0.86), rgba(17, 24, 39, 0.86)),
+        url("../images/medicina-familiar-logo.jpg") center / cover;
+}
+
+.contact-page .contact-info,
+.contact-page .appointment-form {
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.88);
+}
+
+.dark-mode.contact-page .contact-info,
+.dark-mode.contact-page .appointment-form {
+    background: rgba(31, 41, 55, 0.88);
 }
 
 .appointment-form {
@@ -458,6 +549,10 @@ h3 {
     .education-band {
         flex-direction: column;
     }
+
+    .formative-content {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Móvil: botones de ancho completo y textos más cómodos para pantallas pequeñas. */
@@ -473,6 +568,10 @@ h3 {
         padding-right: 1rem;
     }
 
+    .formative-section {
+        padding: 3rem 1rem;
+    }
+
     .site-header {
         align-items: center;
         flex-direction: row;
@@ -481,6 +580,11 @@ h3 {
 
     .logo {
         flex: 1 1 auto;
+    }
+
+    .logo img {
+        height: 42px;
+        width: 42px;
     }
 
     .nav-toggle {
