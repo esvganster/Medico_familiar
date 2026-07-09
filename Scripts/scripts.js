@@ -1,5 +1,7 @@
 // Seleccionamos elementos que existen en todas o algunas páginas del sitio.
 const themeToggle = document.getElementById("themeToggle");
+const navToggle = document.getElementById("navToggle");
+const mainNav = document.getElementById("mainNav");
 const appointmentForm = document.getElementById("appointmentForm");
 const formMessage = document.getElementById("formMessage");
 
@@ -23,6 +25,14 @@ if (themeToggle) {
 
         themeToggle.textContent = isDarkMode ? "Modo claro" : "Modo oscuro";
         localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+    });
+}
+
+if (navToggle && mainNav) {
+    navToggle.addEventListener("click", function () {
+        const isOpen = mainNav.classList.toggle("is-open");
+
+        navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
     });
 }
 

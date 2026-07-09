@@ -82,7 +82,12 @@ a {
     justify-content: center;
 }
 
+.nav-toggle {
+    display: none;
+}
+
 .main-nav a,
+.nav-toggle,
 .theme-toggle,
 .btn {
     border-radius: 8px;
@@ -112,7 +117,16 @@ a {
 }
 
 /* Hover del botón de tema: cambia color y se eleva suavemente al pasar el mouse. */
-.theme-toggle:hover {
+.nav-toggle {
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    color: var(--primary-dark);
+    cursor: pointer;
+    padding: 0.65rem 0.9rem;
+}
+
+.theme-toggle:hover,
+.nav-toggle:hover {
     background: var(--primary-dark);
     color: white;
     transform: translateY(-2px);
@@ -459,10 +473,45 @@ h3 {
         padding-right: 1rem;
     }
 
+    .site-header {
+        align-items: center;
+        flex-direction: row;
+        gap: 0.75rem;
+    }
+
+    .logo {
+        flex: 1 1 auto;
+    }
+
+    .nav-toggle {
+        display: inline-flex;
+        flex: 0 0 auto;
+    }
+
+    .main-nav {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        display: none;
+        flex: 1 0 100%;
+        order: 3;
+        padding: 0.5rem;
+        width: 100%;
+    }
+
+    .main-nav.is-open {
+        display: grid;
+    }
+
     .main-nav a,
     .theme-toggle,
     .btn {
         width: 100%;
+    }
+
+    .theme-toggle {
+        order: 4;
     }
 
     .hero-actions {
