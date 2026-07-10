@@ -10,13 +10,14 @@
     --bg: #f7fafc;
     --surface: #ffffff;
     --surface-soft: #edf7f6;
+    --surface-tint: #e6f4f1;
     --text: #17212b;
     --muted: #5e6a75;
     --primary: #0f766e;
     --primary-dark: #115e59;
     --accent: #f59e0b;
     --border: #d8e5e3;
-    --shadow: 0 18px 45px rgba(23, 33, 43, 0.12);
+    --shadow: 0 14px 34px rgba(23, 33, 43, 0.1);
 }
 
 /* La clase dark-mode se activa con JavaScript y cambia el tema completo. */
@@ -24,6 +25,7 @@ body.dark-mode {
     --bg: #111827;
     --surface: #1f2937;
     --surface-soft: #172033;
+    --surface-tint: #19313a;
     --text: #f8fafc;
     --muted: #cbd5e1;
     --primary: #2dd4bf;
@@ -57,7 +59,8 @@ a {
 /* Encabezado con Flexbox: separa logo, menú y botón de tema. */
 .site-header {
     align-items: center;
-    background: var(--surface);
+    backdrop-filter: blur(16px);
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
     border-bottom: 1px solid var(--border);
     display: flex;
     gap: 1rem;
@@ -147,6 +150,8 @@ a {
 /* Hero con Grid: dos columnas en escritorio y una columna en móvil. */
 .hero {
     align-items: center;
+    background:
+        linear-gradient(135deg, color-mix(in srgb, var(--surface-tint) 70%, transparent), transparent 52%);
     display: grid;
     gap: 3rem;
     grid-template-columns: minmax(0, 1fr) minmax(280px, 0.9fr);
@@ -201,6 +206,30 @@ h3 {
     flex-wrap: wrap;
     gap: 0.9rem;
     margin-top: 2rem;
+}
+
+.trust-strip {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 1.25rem 7%;
+}
+
+.trust-strip div {
+    display: grid;
+    gap: 0.25rem;
+}
+
+.trust-strip strong {
+    color: var(--primary-dark);
+}
+
+.trust-strip span {
+    color: var(--muted);
+    font-size: 0.95rem;
 }
 
 .btn {
@@ -297,6 +326,25 @@ h3 {
     transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
 
+.service-card {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.service-icon {
+    align-items: center;
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--primary-dark);
+    display: inline-flex;
+    font-size: 0.8rem;
+    font-weight: 800;
+    height: 42px;
+    justify-content: center;
+    width: 42px;
+}
+
 /* Hover de tarjetas: cambia el borde y eleva la tarjeta cuando el mouse pasa encima. */
 .card:hover,
 .service-card:hover,
@@ -352,6 +400,23 @@ h3 {
 .text-link:hover {
     color: var(--accent);
     transform: translateX(4px);
+}
+
+.credential-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 1.25rem;
+}
+
+.credential-list span {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--primary-dark);
+    font-size: 0.92rem;
+    font-weight: 700;
+    padding: 0.55rem 0.75rem;
 }
 
 .page-hero {
@@ -540,8 +605,61 @@ h3 {
 .site-footer {
     background: var(--text);
     color: var(--bg);
-    padding: 1.4rem 7%;
-    text-align: center;
+    padding: 2.4rem 7% 1.4rem;
+}
+
+.footer-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1.4fr 1fr 0.8fr;
+    margin-bottom: 1.5rem;
+}
+
+.footer-grid h2,
+.footer-grid h3 {
+    color: white;
+    font-size: 1rem;
+    margin-bottom: 0.65rem;
+}
+
+.footer-grid p,
+.footer-grid a,
+.footer-note {
+    color: color-mix(in srgb, var(--bg) 78%, transparent);
+}
+
+.footer-grid a {
+    display: block;
+    margin-bottom: 0.35rem;
+    text-decoration: none;
+}
+
+.footer-grid a:hover {
+    color: var(--accent);
+}
+
+.footer-note {
+    border-top: 1px solid color-mix(in srgb, var(--bg) 18%, transparent);
+    font-size: 0.88rem;
+    padding-top: 1rem;
+}
+
+.whatsapp-float {
+    background: #25d366;
+    border-radius: 999px;
+    bottom: 1.2rem;
+    box-shadow: 0 12px 30px rgba(37, 211, 102, 0.35);
+    color: #082316;
+    font-weight: 800;
+    padding: 0.85rem 1.1rem;
+    position: fixed;
+    right: 1.2rem;
+    text-decoration: none;
+    z-index: 20;
+}
+
+.whatsapp-float:hover {
+    transform: translateY(-3px);
 }
 
 /* Tableta: reduce espacios y permite que el encabezado respire mejor. */
@@ -556,7 +674,9 @@ h3 {
     }
 
     .hero,
-    .contact-layout {
+    .contact-layout,
+    .footer-grid,
+    .trust-strip {
         grid-template-columns: 1fr;
     }
 
@@ -640,5 +760,15 @@ h3 {
 
     .hero-actions {
         flex-direction: column;
+    }
+
+    .trust-strip {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .whatsapp-float {
+        bottom: 0.9rem;
+        right: 0.9rem;
     }
 }
