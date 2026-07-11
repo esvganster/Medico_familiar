@@ -6,15 +6,38 @@ const appointmentForm = document.getElementById("appointmentForm");
 const formMessage = document.getElementById("formMessage");
 
 // Leemos el tema guardado. Si el usuario ya activó modo oscuro, se mantiene al cambiar de página.
-const savedTheme = localStorage.getItem("theme");
+function readSavedTheme() {
+    try {
+        return localStorage.getItem("theme");
+    } catch (error) {
+        return null;
+    }
+}
+
+function saveTheme(theme) {
+    try {
+        localStorage.setItem("theme", theme);
+    } catch (error) {
+        return;
+    }
+}
+
+const savedTheme = readSavedTheme();
+
+function updateThemeSwitch(isDarkMode) {
+    if (!themeToggle) {
+        return;
+    }
+
+    themeToggle.setAttribute("aria-checked", isDarkMode ? "true" : "false");
+    themeToggle.setAttribute("aria-label", isDarkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+}
 
 if (savedTheme === "dark") {
     document.body.classList.add("dark-mode");
-
-    if (themeToggle) {
-        themeToggle.textContent = "Modo claro";
-    }
 }
+
+updateThemeSwitch(document.body.classList.contains("dark-mode"));
 
 // Evento click para cambiar entre modo claro y modo oscuro.
 if (themeToggle) {
@@ -23,8 +46,8 @@ if (themeToggle) {
 
         const isDarkMode = document.body.classList.contains("dark-mode");
 
-        themeToggle.textContent = isDarkMode ? "Modo claro" : "Modo oscuro";
-        localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+        updateThemeSwitch(isDarkMode);
+        saveTheme(isDarkMode ? "dark" : "light");
     });
 }
 

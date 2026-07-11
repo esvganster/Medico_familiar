@@ -12,17 +12,28 @@
 <body>
     <!-- Encabezado reutilizable: se repite en las tres páginas para mantener la navegación. -->
     <header class="site-header">
-        <a class="logo" href="index.html">Dr. Ramón Victoriano</a>
+        <a class="logo" href="../index.html">
+            <img src="../images/medicina-familiar-logo.jpg" alt="Logo de medicina familiar">
+            <span>Dr. Ramón Victoriano</span>
+        </a>
+
+        <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="mainNav">
+            Menu
+        </button>
 
         <!-- Flexbox organiza el menú y permite que se adapte en pantallas pequeñas. -->
-        <nav class="main-nav" aria-label="Navegación principal">
-            <a class="active" href="index.html">Inicio</a>
+        <nav class="main-nav" id="mainNav" aria-label="Navegación principal">
+            <a class="active" href="../index.html">Inicio</a>
             <a href="servicios.html">Servicios</a>
             <a href="contacto.html">Contacto</a>
         </nav>
 
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambiar modo oscuro">
-            Modo oscuro
+        <button class="theme-toggle" id="themeToggle" type="button" role="switch" aria-checked="false" aria-label="Cambiar a modo oscuro">
+            <span class="theme-icon theme-sun" aria-hidden="true">☀</span>
+            <span class="theme-switch-track" aria-hidden="true">
+                <span class="theme-switch-thumb"></span>
+            </span>
+            <span class="theme-icon theme-moon" aria-hidden="true">☾</span>
         </button>
     </header>
 
