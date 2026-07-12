@@ -1,37 +1,120 @@
-// Seleccionamos elementos que existen en todas o algunas páginas del sitio.
+// Seleccionamos elementos que existen en todas o algunas paginas del sitio.
 const themeToggle = document.getElementById("themeToggle");
 const navToggle = document.getElementById("navToggle");
 const mainNav = document.getElementById("mainNav");
 const appointmentForm = document.getElementById("appointmentForm");
 const formMessage = document.getElementById("formMessage");
 
-// Leemos el tema guardado. Si el usuario ya activó modo oscuro, se mantiene al cambiar de página.
-function readSavedTheme() {
+function readStorageValue(key, fallbackValue) {
     try {
-        return localStorage.getItem("theme");
+        const storedValue = localStorage.getItem(key);
+        return storedValue === null ? fallbackValue : storedValue;
     } catch (error) {
-        return null;
+        return fallbackValue;
     }
 }
 
-function saveTheme(theme) {
+function saveStorageValue(key, value) {
     try {
-        localStorage.setItem("theme", theme);
+        localStorage.setItem(key, value);
+        return true;
     } catch (error) {
-        return;
+        return false;
     }
 }
 
-const savedTheme = readSavedTheme();
+function normalizeText(value) {
+    return value.trim().replace(/\s+/g, " ");
+}
+
+function isValidPhone(phone) {
+    const digits = phone.replace(/\D/g, "");
+    return digits.length >= 10;
+}
+
+function buildAppointmentData(form) {
+    return {
+        name: normalizeText(form.elements.name.value),
+        phone: normalizeText(form.elements.phone.value),
+        service: normalizeText(form.elements.service.value),
+        message: normalizeText(form.elements.message.value),
+        createdAt: new Date().toISOString()
+    };
+}
+
+function validateAppointmentData(data) {
+    if (data.name.length < 3) {
+        return { isValid: false, field: "name", message: "Escribe un nombre de al menos 3 caracteres." };
+    }
+
+    if (!isValidPhone(data.phone)) {
+        return { isValid: false, field: "phone", message: "Escribe un telefono valido de al menos 10 digitos." };
+    }
+
+    if (data.service === "") {
+        return { isValid: false, field: "service", message: "Selecciona un servicio de interes." };
+    }
+
+    return { isValid: true, field: "", message: "Formulario valido." };
+}
+
+function getStoredAppointments(storageKey) {
+    try {
+        const storedAppointments = JSON.parse(readStorageValue(storageKey, "[]"));
+        return Array.isArray(storedAppointments) ? storedAppointments : [];
+    } catch (error) {
+        return [];
+    }
+}
+
+function saveAppointmentData(storageKey, appointmentData) {
+    const appointments = getStoredAppointments(storageKey);
+    appointments.push(appointmentData);
+
+    return saveStorageValue(storageKey, JSON.stringify(appointments));
+}
+
+function showFormMessage(message, type) {
+    if (!formMessage) {
+        return message;
+    }
+
+    formMessage.textContent = message;
+    formMessage.style.color = type === "error" ? "#b91c1c" : "var(--primary-dark)";
+    return message;
+}
+
+function markInvalidField(field) {
+    if (!field) {
+        return false;
+    }
+
+    field.style.borderColor = "#b91c1c";
+    field.style.boxShadow = "0 0 0 4px rgba(185, 28, 28, 0.12)";
+    return true;
+}
+
+function clearFieldState(field) {
+    if (!field) {
+        return false;
+    }
+
+    field.style.borderColor = "";
+    field.style.boxShadow = "";
+    return true;
+}
 
 function updateThemeSwitch(isDarkMode) {
     if (!themeToggle) {
-        return;
+        return false;
     }
 
     themeToggle.setAttribute("aria-checked", isDarkMode ? "true" : "false");
     themeToggle.setAttribute("aria-label", isDarkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+    return isDarkMode;
 }
+
+const savedTheme = readStorageValue("theme", null);
 
 if (savedTheme === "dark") {
     document.body.classList.add("dark-mode");
@@ -47,7 +130,7 @@ if (themeToggle) {
         const isDarkMode = document.body.classList.contains("dark-mode");
 
         updateThemeSwitch(isDarkMode);
-        saveTheme(isDarkMode ? "dark" : "light");
+        saveStorageValue("theme", isDarkMode ? "dark" : "light");
     });
 }
 
@@ -59,18 +142,47 @@ if (navToggle && mainNav) {
     });
 }
 
+// Evento keydown: permite cerrar el menu desplegable con la tecla Escape.
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && mainNav && navToggle) {
+        mainNav.classList.remove("is-open");
+        navToggle.setAttribute("aria-expanded", "false");
+    }
+});
+
 // El formulario solo existe en contacto.html, por eso validamos antes de usarlo.
 if (appointmentForm) {
+    appointmentForm.addEventListener("input", function (event) {
+        clearFieldState(event.target);
+
+        if (event.target.id === "message") {
+            const remainingCharacters = 160 - event.target.value.length;
+            showFormMessage(`Puedes escribir ${Math.max(remainingCharacters, 0)} caracteres mas.`, "success");
+        }
+    });
+
+    appointmentForm.addEventListener("change", function (event) {
+        clearFieldState(event.target);
+    });
+
     appointmentForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
-        const nameInput = document.getElementById("name");
-        const serviceInput = document.getElementById("service");
+        const appointmentData = buildAppointmentData(appointmentForm);
+        const validation = validateAppointmentData(appointmentData);
 
-        // Mensaje interactivo sencillo para confirmar la solicitud en pantalla.
-        formMessage.textContent =
-            `Gracias, ${nameInput.value}. Recibimos tu solicitud para: ${serviceInput.value}.`;
+        if (!validation.isValid) {
+            markInvalidField(appointmentForm.elements[validation.field]);
+            showFormMessage(validation.message, "error");
+            return;
+        }
 
+        const wasSaved = saveAppointmentData("appointmentRequests", appointmentData);
+        const confirmationMessage = wasSaved
+            ? `Gracias, ${appointmentData.name}. Recibimos tu solicitud para: ${appointmentData.service}.`
+            : `Gracias, ${appointmentData.name}. Recibimos tu solicitud, pero el navegador no permitio guardarla.`;
+
+        showFormMessage(confirmationMessage, "success");
         appointmentForm.reset();
     });
 }
