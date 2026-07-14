@@ -80,7 +80,8 @@ function showFormMessage(message, type) {
     }
 
     formMessage.textContent = message;
-    formMessage.style.color = type === "error" ? "#b91c1c" : "var(--primary-dark)";
+    formMessage.classList.remove("is-error", "is-success");
+    formMessage.classList.add(type === "error" ? "is-error" : "is-success");
     return message;
 }
 
@@ -89,8 +90,7 @@ function markInvalidField(field) {
         return false;
     }
 
-    field.style.borderColor = "#b91c1c";
-    field.style.boxShadow = "0 0 0 4px rgba(185, 28, 28, 0.12)";
+    field.classList.add("is-invalid");
     return true;
 }
 
@@ -99,8 +99,7 @@ function clearFieldState(field) {
         return false;
     }
 
-    field.style.borderColor = "";
-    field.style.boxShadow = "";
+    field.classList.remove("is-invalid");
     return true;
 }
 
