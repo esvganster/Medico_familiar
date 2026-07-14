@@ -534,7 +534,8 @@ h3 {
 .service-card,
 .contact-info,
 .appointment-form,
-.formative-dropdown {
+.formative-dropdown,
+.formative-video-card {
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.44));
@@ -549,6 +550,7 @@ h3 {
 .dark-mode .contact-info,
 .dark-mode .appointment-form,
 .dark-mode .formative-dropdown,
+.dark-mode .formative-video-card,
 .dark-mode .trust-strip {
     background: linear-gradient(145deg, rgba(15, 23, 42, 0.84), rgba(15, 23, 42, 0.48));
 }
@@ -556,7 +558,8 @@ h3 {
 .card,
 .service-card,
 .contact-info,
-.appointment-form {
+.appointment-form,
+.formative-video-card {
     padding: 1.4rem;
 }
 
@@ -602,7 +605,8 @@ h3 {
 .contact-info p,
 .formative-heading p,
 .formative-content p,
-.formative-content li {
+.formative-content li,
+.formative-video-card p {
     color: var(--muted);
 }
 
@@ -611,11 +615,35 @@ h3 {
     .service-card:hover,
     .contact-info:hover,
     .appointment-form:hover,
-    .formative-dropdown:hover {
+    .formative-dropdown:hover,
+    .formative-video-card:hover {
         background: linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(238, 252, 255, 0.68));
         border-color: var(--border-strong);
         box-shadow: var(--shadow-hover);
         transform: translateY(-5px);
+    }
+
+    .dark-mode .card:hover,
+    .dark-mode .service-card:hover,
+    .dark-mode .contact-info:hover,
+    .dark-mode .appointment-form:hover,
+    .dark-mode .formative-dropdown:hover,
+    .dark-mode .formative-video-card:hover {
+        background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(8, 15, 31, 0.86));
+        border-color: rgba(103, 232, 249, 0.36);
+        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.38), 0 0 18px rgba(34, 211, 238, 0.1);
+        color: var(--text);
+    }
+
+    .dark-mode .main-nav a:hover,
+    .dark-mode .theme-toggle:hover {
+        background: rgba(15, 23, 42, 0.92);
+        color: #ffffff;
+    }
+
+    .dark-mode .btn.secondary:hover {
+        background: rgba(8, 15, 31, 0.92);
+        color: #ffffff;
     }
 }
 
@@ -678,6 +706,30 @@ h3 {
     gap: 1.4rem;
     grid-template-columns: minmax(260px, 0.9fr) minmax(260px, 1.1fr);
     padding: 1.35rem;
+}
+
+.formative-video-card {
+    align-items: center;
+    display: grid;
+    gap: 1.4rem;
+    grid-template-columns: minmax(240px, 0.75fr) minmax(280px, 1.25fr);
+}
+
+.video-frame {
+    aspect-ratio: 16 / 9;
+    background: #020617;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    width: 100%;
+}
+
+.video-frame iframe {
+    border: 0;
+    display: block;
+    height: 100%;
+    width: 100%;
 }
 
 /* =========================================================
@@ -936,7 +988,8 @@ h3 {
         flex-direction: column;
     }
 
-    .formative-content {
+    .formative-content,
+    .formative-video-card {
         grid-template-columns: 1fr;
     }
 }
