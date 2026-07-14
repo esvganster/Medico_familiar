@@ -1304,15 +1304,19 @@ h3 {
     display: grid;
     gap: 0.55rem;
     grid-column: auto;
+    justify-self: auto;
     left: 0;
+    max-height: none;
     opacity: 0;
     overflow: hidden;
     padding: 1.05rem;
     pointer-events: none;
     position: fixed;
+    right: auto;
     top: 1rem;
     transform: translateX(-106%);
     transition: opacity 0.24s ease, transform 0.28s ease;
+    visibility: hidden;
     width: min(310px, calc(100vw - 2rem));
     z-index: 70;
 }
@@ -1333,6 +1337,7 @@ h3 {
     opacity: 1;
     pointer-events: auto;
     transform: translateX(0);
+    visibility: visible;
 }
 
 .main-nav a {
@@ -1377,6 +1382,9 @@ h3 {
         border-radius: 22px;
         bottom: 0.75rem;
         left: 0.75rem;
+        max-height: none;
+        padding: 1rem;
+        right: auto;
         top: 0.75rem;
         width: min(292px, calc(100vw - 1.5rem));
     }
