@@ -754,6 +754,64 @@ h3 {
     margin-top: 1rem;
 }
 
+.social-link {
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--primary-dark);
+    display: inline-flex;
+    font-weight: 800;
+    gap: 0.55rem;
+    margin-top: 0.75rem;
+    padding: 0.65rem 0.8rem;
+    text-decoration: none;
+    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.instagram-icon {
+    background: linear-gradient(135deg, #f97316, #ec4899 48%, #7c3aed);
+    border-radius: 7px;
+    box-shadow: 0 8px 18px rgba(236, 72, 153, 0.22);
+    display: inline-block;
+    height: 22px;
+    position: relative;
+    width: 22px;
+}
+
+.instagram-icon::before {
+    border: 2px solid #ffffff;
+    border-radius: 6px;
+    content: "";
+    inset: 5px;
+    position: absolute;
+}
+
+.instagram-icon::after {
+    background: #ffffff;
+    border-radius: 50%;
+    content: "";
+    height: 4px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 4px;
+}
+
+.instagram-link:hover {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.12), rgba(236, 72, 153, 0.14));
+    border-color: rgba(236, 72, 153, 0.42);
+    box-shadow: 0 14px 30px rgba(236, 72, 153, 0.16);
+    color: #be185d;
+    transform: translateY(-2px);
+}
+
+.dark-mode .instagram-link:hover {
+    background: rgba(15, 23, 42, 0.9);
+    border-color: rgba(236, 72, 153, 0.38);
+    box-shadow: 0 14px 28px rgba(236, 72, 153, 0.12);
+    color: #fbcfe8;
+}
+
 .contact-page .page-hero,
 .contact-page .contact-layout {
     background:
@@ -870,6 +928,17 @@ h3 {
     display: block;
     margin-bottom: 0.35rem;
     text-decoration: none;
+}
+
+.footer-grid .social-link {
+    color: var(--footer-text);
+    display: inline-flex;
+    margin-top: 0.55rem;
+}
+
+.site-footer > .social-link {
+    color: var(--footer-text);
+    margin-top: 1rem;
 }
 
 .footer-grid a:hover {
