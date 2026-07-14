@@ -7,33 +7,43 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="Css/style.css?v=20260714-side-menu-fix">
+    <link rel="stylesheet" href="Css/style.css?v=20260714-drawer">
 </head>
 <body>
     <header class="site-header">
         <a class="logo" href="index.html">
             <img src="images/medicina-familiar-logo.jpg" alt="Logo de medicina familiar" width="678" height="452" decoding="async">
-            <span>Dr. Ramón Victoriano</span>
+            <span>Dr. Ramon Victoriano</span>
         </a>
 
-        <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="mainNav">
-            Menu
-        </button>
+        <div class="header-actions">
+            <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="mainNav">
+                <span>Menu</span>
+            </button>
 
-        <nav class="main-nav" id="mainNav" aria-label="Navegación principal">
-            <a class="active" href="index.html">Inicio</a>
-            <a href="index/servicios.html">Servicios</a>
-            <a href="index/contacto.html">Contacto</a>
-        </nav>
-
-        <button class="theme-toggle" id="themeToggle" type="button" role="switch" aria-checked="false" aria-label="Cambiar a modo oscuro">
-            <span class="theme-icon theme-sun" aria-hidden="true">☀</span>
-            <span class="theme-switch-track" aria-hidden="true">
-                <span class="theme-switch-thumb"></span>
-            </span>
-            <span class="theme-icon theme-moon" aria-hidden="true">☾</span>
-        </button>
+            <button class="theme-toggle" id="themeToggle" type="button" role="switch" aria-checked="false" aria-label="Cambiar a modo oscuro">
+                <span class="theme-icon theme-sun" aria-hidden="true">☀</span>
+                <span class="theme-switch-track" aria-hidden="true">
+                    <span class="theme-switch-thumb"></span>
+                </span>
+                <span class="theme-icon theme-moon" aria-hidden="true">☾</span>
+            </button>
+        </div>
     </header>
+
+    <div class="nav-backdrop" id="navBackdrop" hidden></div>
+    <nav class="main-nav" id="mainNav" aria-label="Navegacion principal">
+        <div class="drawer-head">
+            <img src="images/medicina-familiar-logo.jpg" alt="" width="678" height="452" decoding="async">
+            <div>
+                <strong>Dr. Ramon Victoriano</strong>
+                <span>Medicina familiar</span>
+            </div>
+        </div>
+        <a class="active" href="index.html">Inicio</a>
+        <a href="index/servicios.html">Servicios</a>
+        <a href="index/contacto.html">Contacto</a>
+    </nav>
 
     <main>
         <section class="hero">
@@ -148,6 +158,6 @@
         <span class="sr-only">Agendar consulta por WhatsApp</span>
     </a>
 
-    <script src="Scripts/scripts.js?v=20260714-side-menu-fix"></script>
+    <script src="Scripts/scripts.js?v=20260714-drawer"></script>
 </body>
 </html>

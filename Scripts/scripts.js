@@ -2,6 +2,7 @@
 const themeToggle = document.getElementById("themeToggle");
 const navToggle = document.getElementById("navToggle");
 const mainNav = document.getElementById("mainNav");
+const navBackdrop = document.getElementById("navBackdrop");
 const appointmentForm = document.getElementById("appointmentForm");
 const formMessage = document.getElementById("formMessage");
 
@@ -113,6 +114,22 @@ function updateThemeSwitch(isDarkMode) {
     return isDarkMode;
 }
 
+function setNavigationState(isOpen) {
+    if (!mainNav || !navToggle) {
+        return false;
+    }
+
+    mainNav.classList.toggle("is-open", isOpen);
+    document.body.classList.toggle("nav-open", isOpen);
+    navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+
+    if (navBackdrop) {
+        navBackdrop.hidden = !isOpen;
+    }
+
+    return isOpen;
+}
+
 const savedTheme = readStorageValue("theme", null);
 
 if (savedTheme === "dark") {
@@ -135,16 +152,21 @@ if (themeToggle) {
 
 if (navToggle && mainNav) {
     navToggle.addEventListener("click", function () {
-        const isOpen = mainNav.classList.toggle("is-open");
+        const isOpen = !mainNav.classList.contains("is-open");
 
-        navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        setNavigationState(isOpen);
     });
 
     mainNav.addEventListener("click", function (event) {
         if (event.target.closest("a")) {
-            mainNav.classList.remove("is-open");
-            navToggle.setAttribute("aria-expanded", "false");
+            setNavigationState(false);
         }
+    });
+}
+
+if (navBackdrop) {
+    navBackdrop.addEventListener("click", function () {
+        setNavigationState(false);
     });
 }
 
@@ -157,16 +179,14 @@ document.addEventListener("click", function (event) {
     const clickedMenuButton = navToggle.contains(event.target);
 
     if (!clickedInsideMenu && !clickedMenuButton) {
-        mainNav.classList.remove("is-open");
-        navToggle.setAttribute("aria-expanded", "false");
+        setNavigationState(false);
     }
 });
 
 // Evento keydown: permite cerrar el menu desplegable con la tecla Escape.
 document.addEventListener("keydown", function (event) {
     if (event.key === "Escape" && mainNav && navToggle) {
-        mainNav.classList.remove("is-open");
-        navToggle.setAttribute("aria-expanded", "false");
+        setNavigationState(false);
     }
 });
 
