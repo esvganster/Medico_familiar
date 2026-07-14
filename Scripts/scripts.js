@@ -139,7 +139,28 @@ if (navToggle && mainNav) {
 
         navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
     });
+
+    mainNav.addEventListener("click", function (event) {
+        if (event.target.closest("a")) {
+            mainNav.classList.remove("is-open");
+            navToggle.setAttribute("aria-expanded", "false");
+        }
+    });
 }
+
+document.addEventListener("click", function (event) {
+    if (!mainNav || !navToggle || !mainNav.classList.contains("is-open")) {
+        return;
+    }
+
+    const clickedInsideMenu = mainNav.contains(event.target);
+    const clickedMenuButton = navToggle.contains(event.target);
+
+    if (!clickedInsideMenu && !clickedMenuButton) {
+        mainNav.classList.remove("is-open");
+        navToggle.setAttribute("aria-expanded", "false");
+    }
+});
 
 // Evento keydown: permite cerrar el menu desplegable con la tecla Escape.
 document.addEventListener("keydown", function (event) {
